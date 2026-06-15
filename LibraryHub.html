@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LibraryHub</title>
+
+    <link rel="icon" type="image/png" href="css/files/LibraryHub.png">
+    <link rel="stylesheet" href="css/libraryhub.css">
+    <link rel="manifest" href="manifest-libraryhub.json">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@300;400;500;700&family=Cinzel:wght@400;500;700&family=Oswald:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,300,0,0" />
+
+</head>
+<body>
+
+
+    <div class="bg-layer"></div>
+    <div class="vignette-overlay"></div>
+
+    <div class="hub-container">
+        
+        <div class="brand">
+            <span class="material-symbols-outlined">local_library</span>
+            Library<span>Hub</span>
+        </div>
+
+        <div class="center-stage">
+            <div class="welcome-text">Welcome Back</div>
+            <div class="quote-block">
+                <div class="quote-main"></div>
+                <div class="quote-author"></div>
+            </div>
+        </div>
+
+        <div class="nav-dock">
+    <a href="LibraryHub-Collections.html?filter=tbr" class="glass-btn">
+        <span class="material-symbols-outlined">book_5</span>
+        To Read
+    </a>
+    
+    <a href="LibraryHub-Collections.html?filter=reading" class="glass-btn">
+        <span class="material-symbols-outlined">auto_stories</span>
+        Reading
+    </a>
+    
+    <a href="LibraryHub-Collections.html?filter=read" class="glass-btn">
+        <span class="material-symbols-outlined">book_4</span>
+        Finished
+    </a>
+    
+    <a href="LibraryHub-Collections.html?filter=favorites" class="glass-btn">
+        <span class="material-symbols-outlined">bookmark_star</span>
+        Favorites
+    </a>
+</div>
+
+        <div class="entry-dock">
+            <a href="LibraryHub-Collections.html" class="entry-btn-large">Enter Library</a>
+        </div>
+
+        <div class="stats-corner">
+            
+            <div class="stat-header">
+                <span class="num" id="sTotal">0</span>
+                <span class="label">Total Books</span>
+            </div>
+
+            <div class="stats-grid">
+                
+                <div class="stat-mini">
+                    <span class="num" id="sTBR">0</span>
+                    <span class="label">To Read</span>
+                </div>
+                
+                <div class="stat-mini">
+                    <span class="num" id="sFav">0</span>
+                    <span class="label">Favorites</span>
+                </div>
+
+                <div class="stat-mini">
+                    <span class="num" id="sFinished">0</span>
+                    <span class="label">Finished</span>
+                </div>
+
+                <div class="stat-mini">
+                    <span class="num" id="sReading">0</span>
+                    <span class="label">Reading</span>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <script>
+        const DB_NAME = 'LifeHub_LibraryVault';
+
+        function loadHubStats() {
+            const rawData = localStorage.getItem(DB_NAME);
+            const libraryData = rawData ? JSON.parse(rawData) : [];
+
+            // 1. Initialize Counts
+            let countTotal = libraryData.length;
+            let countFav = 0;
+            let countTBR = 0;
+            let countReading = 0;
+            let countFinished = 0;
+
+            // 2. Loop through books and count
+            libraryData.forEach(book => {
+                // Count Favorites
+                if (book.isFavorite) countFav++;
+
+                // Count Status (Exact match to your data structure)
+                // Note: We use 'read' for finished in the DB, but display as 'Finished'
+                if (book.status === 'tbr') countTBR++;
+                else if (book.status === 'reading') countReading++;
+                else if (book.status === 'read') countFinished++;
+            });
+
+            // 3. Inject into DOM
+            document.getElementById('sTotal').innerText = countTotal;
+            document.getElementById('sFav').innerText = countFav;
+            document.getElementById('sTBR').innerText = countTBR;
+            document.getElementById('sReading').innerText = countReading;
+            document.getElementById('sFinished').innerText = countFinished;
+        }
+
+        window.onload = loadHubStats;
+    </script>
+
+    <script>
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('./sw.js')
+    .then(() => console.log('Service Worker registered'))
+    .catch(err => console.log('SW registration failed:', err));
+}
+</script>
+<script src="../../js/lifehub-navigation-core.js"></script>
+</body>
+</html>
+
+

@@ -1,0 +1,23 @@
+{
+  "name": "LibraryHub",
+  "short_name": "LibraryHub",
+  "start_url": "./LibraryHub.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#050505",
+  "theme_color": "#d4af37",
+  "description": "Personalized Digital Book Library",
+  "icons": [
+    {
+      "src": "css/files/LibraryHub.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "css/files/LibraryHub.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+
+}
