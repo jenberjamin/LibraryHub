@@ -903,7 +903,7 @@ function launchReader(text) {
     const book = libraryData.find(b => b.id === currentBookID);
     document.getElementById('readerBookTitle').innerText = book ? book.title : "Reading Mode";
     document.getElementById('readerTextContainer').innerText = text;
-    window.location.href = `READING-ROOM.html?id=${currentBookID}`;
+    window.location.href = `Reading_Room.html?id=${currentBookID}`;
 }
 
 function closeReader() {
@@ -918,7 +918,7 @@ function trackReaderProgress() {
 
 function launchPDFReader(pdfDataUrl) {
     // Basic redirect for PDF (simplified)
-    window.location.href = `READING-ROOM.html?id=${currentBookID}`;
+    window.location.href = `Reading_Room.html?id=${currentBookID}`;
 }
 
 /* =========================================
